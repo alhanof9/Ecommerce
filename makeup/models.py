@@ -1,21 +1,38 @@
 from django.db import models
 
-class prodect(models.Model):
+class Prodect(models.Model):
     name=models.CharField(max_length=200)
     desc=models.TextField()
     price=models.IntegerField()
-    idP=models.IntegerField()
-    img=models.ImageField(upload_to="makeup/images",default="")
+    image=models.ImageField(upload_to="makeup/images",default="")# ممكن يكون عندنا غلط من ميكب 
+
+    def __str__(self):
+        return f"{self.name}"
 
 
-class clint(models.Model):
+
+class Clint(models.Model):
     name=models.CharField(max_length=200)
-    idC=models.IntegerField()
     pas=models.CharField(max_length=200)
 
-class order(models.Model):    
-    idO=models.IntegerField()
-    amount=models.IntegerField()
-    idC=models.IntegerField()
-    idP=models.IntegerField()
+    def __str__(self):
+        return f"{self.name}"
+
+
+
+class Order(models.Model):    
+    clint = models.ForeignKey('Clint', on_delete=models.CASCADE, null=True, blank=True)
+    prodects=models.ManyToManyField(Prodect,through='OrderedProduct')
+    
+    def __str__(self):
+        return f"order {self.id} by {self.clint.name}"
+
+
+class OrderedProduct(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    prodect=models.ForeignKey(Prodect,on_delete=models.CASCADE)
+    amount=models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.prodect.name} ,the amount ={self.amount}"
 
