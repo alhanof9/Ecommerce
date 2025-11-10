@@ -1,0 +1,32 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+
+  <div class="form-box">
+  
+     <img src="{% static 'makeup/img/logo.jpg' %}"width="120" height="120" alt="Logo">
+
+
+    <h2 class="title">Login</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn-main" type="submit">Login</button>
+    </form>
+
+    <p class="note">
+      Don’t have an account?
+      <a href="{% url 'register' %}">Register here</a>
+    </p>
+  </div>
+
+</body>
+</html>

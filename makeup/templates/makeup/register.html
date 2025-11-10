@@ -1,0 +1,17 @@
+{% extends "makeup/base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+  
+    <div class="form-box">
+      <h2 class="title">Create an Account</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-main" type="submit">Register</button>
+        <p class="note">
+          Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+      </form>
+    </div>
+  
+{% endblock %}

@@ -1,0 +1,40 @@
+body {
+  font-family:  Arial, sans-serif;
+  background:  #e1bdca;
+  margin: 0;
+
+}
+
+.form-box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.75rem;
+}
+
+.btn-main {
+  display: block;
+  width: 100%;
+  background-color: #ff8fb1;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  
+}
+
+.btn-main:hover {
+  background-color: #ff6f91;
+}
+
+.note {
+  text-align: center;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.note a {
+  color: #ff6f91;
+  text-decoration: none;
+}
