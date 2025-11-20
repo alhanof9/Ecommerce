@@ -34,7 +34,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect("index")    # go to home after login
+            return redirect("prodect")    # go to home after login
     else:
         form = AuthenticationForm()
     return render(request, "makeup/login.html", {"form": form})
