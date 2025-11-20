@@ -25,7 +25,7 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'prodect' %}">products</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Basket</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'basket' %}">Basket</a></li>
           {% if user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
           {% else %}

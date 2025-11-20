@@ -1,0 +1,63 @@
+{% extends "makeup/base.html" %}
+{% block title %}Basket{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Your Basket</h2>
+
+    {% if items %}
+    <form method="post">
+        {% csrf_token %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price (SAR)</th>
+                    <th>Amount</th>
+                    <th>Subtotal (SAR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td style="max-width: 100px;">
+                        <input
+                            type="number"
+                            name="qty_{{ item.product.id }}"
+                            value="{{ item.qty }}"
+                            min="1"
+                            class="form-control form-control-sm"
+                        >
+                    </td>
+                    <td>{{ item.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="fw-bold mt-3">
+            Total: {{ total }} SAR
+        </p>
+
+        <button type="submit" name="update" class="btn btn-primary me-2">
+            Update Basket
+        </button>
+
+        <button type="submit" name="empty" class="btn btn-danger me-2">
+            Empty Basket
+        </button>
+
+        <!-- رابط لصفحة إكمال الطلب (Requirement 7) -->
+        <a href="/order" class="btn btn-success">
+            Place Order
+        </a>
+    </form>
+
+    {% else %}
+        <p>Your basket is currently empty — start exploring our products!</p>
+    {% endif %}
+</div>
+{% endblock %}
