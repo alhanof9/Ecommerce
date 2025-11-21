@@ -13,15 +13,15 @@
 </head>
 <body>
 
-  <!-- NAVBAR (global; shows on every page that extends base) -->
+  <!-- NAVBAR (shows on every page that extends base) -->
   <nav class="navbar navbar-expand-lg bg-white border-bottom">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+      <div class="navbar-brand d-flex align-items-center">
         <img src="{% static 'makeup/img/logo.jpg' %}"width="120" height="120" alt="Logo">
         MyStore
-      </a>
+      </div>
 
-      <div class="collapse navbar-collapse" id="nav">
+      <div  id="nav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'prodect' %}">products</a></li>
