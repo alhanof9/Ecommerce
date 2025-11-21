@@ -1,7 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404 
-from .models import Prodect
+from .models import Prodect, Clint, Order, OrderedProduct
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth import login, logout 
 
@@ -105,3 +105,55 @@ def basket(request):
 
     context = {"items": items, "total": total}
     return render(request, "makeup/basket.html", context)
+
+
+def order(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    
+    basket_data = request.session.get("basket", {}) #we could change here
+    product_ids = basket_data.keys()
+    products = Prodect.objects.filter(id__in=product_ids)
+
+    items = []
+    total = 0
+    for p in products:
+        qty = basket_data.get(str(p.id), 0)
+        subtotal = p.price * qty
+        total += subtotal
+        items.append({
+            "product": p,
+            "qty": qty,
+            "subtotal": subtotal
+        })
+
+    if request.method == "GET":
+        data = { 
+            "items" : items,
+            "total" : total
+        }
+        return render(request, "makeup/order.html", data)    
+    
+    if request.method == "POST":
+        if not items:
+            return redirect("basket")
+        
+        username = request.user.username 
+
+        clint = Clint.objects.filter(name=username).first() #we could change here
+        if clint is None:
+            clint = Clint(name=username, pas="")
+            clint.save()
+        
+        order = Order(clint=clint)
+        order.save()
+
+        for item in items:
+            OrderedProduct.objects.create(
+                order=order,
+                prodect=item["product"],
+                amount=item["qty"]
+            )
+        
+        request.session["basket"] = {}
+        return render(request, "makeup/success.html", {"order": order})

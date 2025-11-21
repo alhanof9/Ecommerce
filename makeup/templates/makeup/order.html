@@ -1,0 +1,46 @@
+{% extends "makeup/base.html" %}
+{% block title %}Order Summary{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Order Summary</h2>
+
+  {% if items %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price (SAR)</th>
+          <th>Amount</th>
+          <th>Subtotal (SAR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.product.price }}</td>
+          <td>{{ item.qty }}</td>
+          <td>{{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p class="fw-bold">Total: {{ total }} SAR</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success me-2">
+        Confirm Order
+      </button>
+      <a href="{% url 'basket' %}" class="btn btn-secondary">
+        Back to Basket
+      </a>
+    </form>
+  {% else %}
+    <p>No items in your basket.</p>
+    <a href="{% url 'prodect' %}" class="btn btn-primary">Shop Products</a>
+  {% endif %}
+</div>
+{% endblock %}
