@@ -16,14 +16,17 @@
   <!-- NAVBAR (shows on every page that extends base) -->
   <nav class="navbar navbar-expand-lg bg-white border-bottom">
     <div class="container">
-      <div class="navbar-brand d-flex align-items-center">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'login' %}">
+      <img src="{% static 'makeup/img/logo.jpg' %}" width="120" height="120" alt="Logo">
+      MyStore
+    </a>
+
         <img src="{% static 'makeup/img/logo.jpg' %}"width="120" height="120" alt="Logo">
         MyStore
       </div>
 
       <div  id="nav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'prodect' %}">products</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'basket' %}">Basket</a></li>
           {% if user.is_authenticated %}
