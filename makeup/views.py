@@ -7,8 +7,6 @@ from django.contrib.auth import login, logout
 
 from makeup.models import Prodect
 
-def index(request):
-    return render(request,"makeup/home.html")  
 
 def prodect(request):
     return render(request, 'makeup/prodect.html',{"prodect": Prodect.objects.all()})
@@ -34,7 +32,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect("prodect")    # go to home after login
+            return redirect("prodect")    # go to prodect after login
     else:
         form = AuthenticationForm()
     return render(request, "makeup/login.html", {"form": form})
