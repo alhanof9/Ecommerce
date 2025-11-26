@@ -4,8 +4,7 @@ class Prodect(models.Model):
     name=models.CharField(max_length=200)
     desc=models.TextField()
     price=models.IntegerField()
-    image=models.ImageField(upload_to="makeup/images",default="")# ممكن يكون عندنا غلط من ميكب 
-
+    image=models.ImageField(upload_to="makeup/images",default="") 
     def __str__(self):
         return f"{self.name}"
 

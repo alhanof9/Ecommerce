@@ -11,9 +11,7 @@ from makeup.models import Prodect
 def prodect(request):
     return render(request, 'makeup/prodect.html',{"prodect": Prodect.objects.all()})
 
-def product_detail(request, product_id):
-    product = get_object_or_404(Prodect, id=product_id)
-    return render(request, 'makeup/product_detail.html', {'product': product})
+
 
 def register(request):                               
     if request.method == "POST":
