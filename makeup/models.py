@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Prodect(models.Model):
     name=models.CharField(max_length=200)
@@ -10,21 +11,13 @@ class Prodect(models.Model):
 
 
 
-class Clint(models.Model):
-    name=models.CharField(max_length=200)
-    pas=models.CharField(max_length=200)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-
 class Order(models.Model):    
-    clint = models.ForeignKey('Clint', on_delete=models.CASCADE, null=True, blank=True)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     prodects=models.ManyToManyField(Prodect,through='OrderedProduct')
     
     def __str__(self):
-        return f"order {self.id} by {self.clint.name}"
+        return f"order {self.id} by {self.user.username}"
 
 
 class OrderedProduct(models.Model):

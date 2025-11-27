@@ -1,11 +1,7 @@
-from django.shortcuts import render ,redirect
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404 
-from .models import Prodect, Clint, Order, OrderedProduct
+from django.shortcuts import render ,redirect, get_object_or_404 
+from .models import Prodect, Order, OrderedProduct
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth import login, logout 
-
-from makeup.models import Prodect
 
 
 def prodect(request):
@@ -107,7 +103,7 @@ def order(request):
     if not request.user.is_authenticated:
         return redirect("login")
     
-    basket_data = request.session.get("basket", {}) #we could change here
+    basket_data = request.session.get("basket", {}) 
     product_ids = basket_data.keys()
     products = Prodect.objects.filter(id__in=product_ids)
 
@@ -134,15 +130,9 @@ def order(request):
         if not items:
             return redirect("basket")
         
-        username = request.user.username 
-
-        clint = Clint.objects.filter(name=username).first() #we could change here
-        if clint is None:
-            clint = Clint(name=username, pas="")
-            clint.save()
+        user = request.user
         
-        order = Order(clint=clint)
-        order.save()
+        order = Order.objects.create(user=user)
 
         for item in items:
             OrderedProduct.objects.create(
