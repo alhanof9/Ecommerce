@@ -26,5 +26,5 @@ class OrderedProduct(models.Model):
     amount=models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return f"{self.prodect.name} ,the amount ={self.amount}"
+        return f"{self.order} ,prodect name={self.prodect.name} ,the amount ={self.amount}"
 
